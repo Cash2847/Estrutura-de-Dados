@@ -1,37 +1,78 @@
 /******************************************************************************
 
-Welcome to GDB Online.
-GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
-C#, OCaml, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
-Code, Compile, Run and Debug online from anywhere in world.
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
 
 *******************************************************************************/
 
 #include <stdio.h>
-# define n 33
+# define n 5
 
-int fila[n];
-int ini = 0; // Inicia em 0 na linear
-int fim = -1;
-    
+
+
+typedef struct {
+    int *valores;
+    int ini;
+    int fim;
+} Fila;
 // Verifica se a fila está vazia
-int Vazia() {
-    return ini > fim;
+int Vazia(Fila *f) {
+    return f->ini > f->fim;
 }
 
 // Verifica se a fila está cheia (limite do vetor)
-int Cheia() {
-    return fim == n - 1;
+int Cheia(Fila *f) {
+    return f->fim == n - 1;
 }
 
 // Enfileirar (enqueue)
-int enfileirar(int valor) {
-    if (Cheia()) {
-        printf("Erro: Fila está cheia.")
+void enfileirar(Fila *f, int posicao) {
+    if (Cheia(f)) {
+        printf("Erro: Fila está cheia.\n");
         return;
     }
-    fim++;
-    fila
+    f->valores[++(f->fim)];
+    return;
 }
 
-int desenfileirar () {
+int desenfileirar (Fila *f) {
+    if (Vazia(f)) {
+        printf("Erro: Fila está vazia.\n");
+        return -1;
+    }
+    return f->valores[(f->ini)--];
+
+}
+    
+// Exibindo os valores da fila
+
+void Exibir(Fila *f) {
+    if (Vazia(f)) {
+        printf("A fila está vazia.\n");
+        return;
+    }
+    printf("Fila: ");
+    for (int i = f->ini; i <= f->fim; i ++) {
+    printf("%d", f->valores[i]);
+    }
+    printf("\n");
+}
+
+
+int main() {
+    Fila f;
+    f.ini = 0;
+    f.fim = 0;
+    enfileirar(&f, 10); // Chamando a funcão
+    enfileirar(&f, 20);
+    enfileirar(&f, 30);
+    
+    Exibir(&f);
+
+    printf("Desenfileirado: %d\n", desenfileirar(&f));
+    
+    Exibir(&f); // Note que o espaço '10' agora está "perdido"
+
+    return 0;
+}
