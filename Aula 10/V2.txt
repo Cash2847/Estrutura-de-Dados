@@ -1,0 +1,14 @@
+V2
+    1- Crítica ao trabalho (O que pode ser mudado para otimizar )
+    2- Bugs: Ferramentas de auxilio (CPPCHECK; CLANG ANALYZER) para 
+        encontrar possiveis falhas para melhorar o código.
+    3- Usar Ponteiros (fazer uma versão diferente do código já existente) e Análise 
+        de Tempo (biblioteca Time) para determinar quanto tempo leva para
+        cada código (com Ponteiro e sem Pointeiro) ser realizado.
+    4 - Análise de Estresse: Ver em qual momento o código quebra (Não aguenta rodar).
+
+Prazo de Entrega: 25/05/2026.
+
+
+
+    
