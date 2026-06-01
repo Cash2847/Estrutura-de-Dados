@@ -1,0 +1,21 @@
+# Hospital Simulado – Sistema de Gerenciamento de Pacientes ## Disciplina Estrutura de Dados ## Objetivo Desenvolver um sistema em linguagem C que simule o fluxo de pacientes em um hospital utilizando as estruturas de dados: - Pilha - Fila - Fila Circular --- ## distribuição O hospital possui três setores de atendimento: ### Emergência Utiliza uma **Pilha (LIFO - Last In, First Out)**. - O último paciente a chegar é o primeiro a ser atendido. - Implementada com vetor e controle de topo. ### Consultas Agendadas Utiliza uma **Fila (FIFO - First In, First Out)**. - O primeiro paciente a chegar é o primeiro a ser atendido. - Implementada com vetor e controle de início e fim. ### Exames / Laboratório Utiliza uma **Fila Circular**. - Capacidade máxima de 8 pacientes. - Quando a fila estiver cheia, o paciente mais antigo será removido automaticamente. - Implementada com índices circulares. --- ## Cadastro de Pacientes Cada paciente possui as seguintes informações: | Campo | Tipo | |---------|---------| | Nome | String | | Idade | Inteiro | | Gravidade | Inteiro (1 a 5) | | Tipo de Atendimento | 1 - Emergência<br>2 - Consulta<br>3 - Exame | --- ## Funcionalidades do Sistema --- ## Regras de Negócio ### Gravidade do Paciente Pacientes com gravidade **4 ou 5** devem ser encaminhados automaticamente para o setor de **Emergência**. ### Atendimento Ao atender um paciente, o sistema deve exibir todos os seus dados antes da remoção da estrutura. ### Fila Circular Quando atingir a capacidade máxima: 1. O paciente mais antigo é removido automaticamente. 2. O novo paciente é inserido na fila. --- ## Estrutura do Projeto
+text
+HospitalSimulado/
+│
+├── main.c
+├── paciente.h
+├── paciente.c
+├── pilha.h
+├── pilha.c
+├── fila.h
+├── fila.c
+├── filaCircular.h
+├── filaCircular.c
+└── README.md
+--- ## Como Compilar
+bash
+gcc *.c -o hospital
+## Como Executar
+bash
+./hospital
+coloque alguns problemas q podem ter ocorrido
