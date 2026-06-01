@@ -236,7 +236,6 @@ static void TesteEstresse()
     Relatorios();
 
     /* ── fim da medição total ── */
-    /* ── fim da medição total ── */
     clock_t fim = clock();
  
     double tempo = (double)(fim - inicio) / CLOCKS_PER_SEC;
