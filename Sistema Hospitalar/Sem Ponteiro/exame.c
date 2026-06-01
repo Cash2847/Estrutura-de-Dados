@@ -1,80 +1,77 @@
 #include <stdio.h>
 #include "exame.h"
 
-Exame iniciarFila()
+void iniciarFilaExame(FilaExame *fila)
 {
-    Exame e;
-    e.frente = 0;
-    e.tras   = -1;
-    e.qnt    = 0;
-    return e;
+    fila->frente = 0;
+    fila->tras   = -1;
+    fila->qnt    = 0;
 }
 
-int ExameCheio(Exame e)
+int ExameCheio(const FilaExame *fila)
 {
-    return e.qnt == EXAME_MAX;
+    return fila->qnt == EXAME_MAX;
 }
 
-int ExameVazio(Exame e)
+int ExameVazio(const FilaExame *fila)
 {
-    return e.qnt == 0;
+    return fila->qnt == 0;
 }
 
-/* Ao atingir capacidade máxima, remove o mais antigo automaticamente */
-Exame ExameEnqueue(Exame e, Paciente p)
+/* Ao atingir capacidade máxima, descarta automaticamente o mais antigo */
+void ExameEnqueue(FilaExame *fila, const Paciente *p)
 {
-    if (ExameCheio(e)) {
+    if (ExameCheio(fila)) {
         printf("Fila de exames cheia! Removendo paciente mais antigo: %s\n",
-               e.exame[(e.frente) % EXAME_MAX].nome);
-        /* descarta o mais antigo */
-        e.frente = (e.frente + 1) % EXAME_MAX;
-        e.qnt--;
+               fila->dados[fila->frente].nome);
+        fila->frente = (fila->frente + 1) % EXAME_MAX;
+        fila->qnt--;
     }
-    e.tras = (e.tras + 1) % EXAME_MAX;
-    e.exame[e.tras] = p;
-    e.qnt++;
-    printf("Paciente %s adicionado à fila de Exames.\n", p.nome);
-    return e;
+    fila->tras = (fila->tras + 1) % EXAME_MAX;
+    fila->dados[fila->tras] = *p;
+    fila->qnt++;
+    printf("Paciente %s adicionado à fila de Exames.\n", p->nome);
 }
 
-Exame ExameDequeue(Exame e)
+void ExameDequeue(FilaExame *fila)
 {
-    if (ExameVazio(e)) {
+    if (ExameVazio(fila)) {
         printf("Fila de exames vazia! Nenhum paciente no momento.\n");
     } else {
+        const Paciente *atual = &fila->dados[fila->frente];
         printf("\n--- Atendendo Exame ---\n");
-        printf("Nome    : %s\n", e.exame[e.frente].nome);
-        printf("Idade   : %d\n", e.exame[e.frente].idade);
-        printf("Gravidade: %d\n", e.exame[e.frente].gravidade);
-        e.frente = (e.frente + 1) % EXAME_MAX;
-        e.qnt--;
+        printf("Nome     : %s\n", atual->nome);
+        printf("Idade    : %d\n", atual->idade);
+        printf("Gravidade: %d\n", atual->gravidade);
+        fila->frente = (fila->frente + 1) % EXAME_MAX;
+        fila->qnt--;
     }
-    return e;
 }
 
-void ListarExames(Exame e)
+void ListarExames(const FilaExame *fila)
 {
-    if (ExameVazio(e)) {
+    if (ExameVazio(fila)) {
         printf("Não há nenhum exame no momento!\n");
     } else {
-        printf("\n--- Fila de Exames (frente → trás) ---\n");
-        int idx = e.frente;
-        for (int i = 0; i < e.qnt; i++) {
+        printf("\n--- Fila de Exames ---\n");
+        int idx = fila->frente;
+        for (int i = 0; i < fila->qnt; i++) {
+            const Paciente *p = &fila->dados[idx];
             printf("[%d] Nome: %-20s | Idade: %3d | Gravidade: %d\n",
-                   i + 1, e.exame[idx].nome, e.exame[idx].idade, e.exame[idx].gravidade);
+                   i + 1, p->nome, p->idade, p->gravidade);
             idx = (idx + 1) % EXAME_MAX;
         }
     }
 }
 
-void RelatorioExames(Exame e)
+void RelatorioExames(const FilaExame *fila)
 {
     printf("\n===== Exames/Laboratório (Fila Circular – máx %d) =====\n", EXAME_MAX);
-    if (ExameVazio(e)) {
+    if (ExameVazio(fila)) {
         printf("Fila de exames está vazia.\n");
     } else {
-        printf("Pacientes na fila: %d / %d\n", e.qnt, EXAME_MAX);
-        ListarExames(e);
+        printf("Pacientes na fila: %d / %d\n", fila->qnt, EXAME_MAX);
+        ListarExames(fila);
     }
-    printf("Vagas disponíveis: %d\n", EXAME_MAX - e.qnt);
+    printf("Vagas disponíveis: %d\n", EXAME_MAX - fila->qnt);
 }
