@@ -1,5 +1,131 @@
-# Hospital Simulado – Sistema de Gerenciamento de Pacientes ## Disciplina Estrutura de Dados ## Objetivo Desenvolver um sistema em linguagem C que simule o fluxo de pacientes em um hospital utilizando as estruturas de dados: - Pilha - Fila - Fila Circular --- ## distribuição O hospital possui três setores de atendimento: ### Emergência Utiliza uma **Pilha (LIFO - Last In, First Out)**. - O último paciente a chegar é o primeiro a ser atendido. - Implementada com vetor e controle de topo. ### Consultas Agendadas Utiliza uma **Fila (FIFO - First In, First Out)**. - O primeiro paciente a chegar é o primeiro a ser atendido. - Implementada com vetor e controle de início e fim. ### Exames / Laboratório Utiliza uma **Fila Circular**. - Capacidade máxima de 8 pacientes. - Quando a fila estiver cheia, o paciente mais antigo será removido automaticamente. - Implementada com índices circulares. --- ## Cadastro de Pacientes Cada paciente possui as seguintes informações: | Campo | Tipo | |---------|---------| | Nome | String | | Idade | Inteiro | | Gravidade | Inteiro (1 a 5) | | Tipo de Atendimento | 1 - Emergência<br>2 - Consulta<br>3 - Exame | --- ## Funcionalidades do Sistema --- ## Regras de Negócio ### Gravidade do Paciente Pacientes com gravidade **4 ou 5** devem ser encaminhados automaticamente para o setor de **Emergência**. ### Atendimento Ao atender um paciente, o sistema deve exibir todos os seus dados antes da remoção da estrutura. ### Fila Circular Quando atingir a capacidade máxima: 1. O paciente mais antigo é removido automaticamente. 2. O novo paciente é inserido na fila. --- ## Estrutura do Projeto
-text
+# Hospital Simulado – Sistema de Gerenciamento de Pacientes
+
+## Disciplina
+
+Estrutura de Dados
+
+## Objetivo
+
+Desenvolver um sistema em linguagem C que simule o fluxo de pacientes em um hospital utilizando as estruturas de dados:
+
+* Pilha
+* Fila
+* Fila Circular
+
+---
+
+## Distribuição
+
+O hospital possui três setores de atendimento:
+
+### Emergência
+
+Utiliza uma **Pilha (LIFO - Last In, First Out)**.
+
+* O último paciente a chegar é o primeiro a ser atendido.
+* Implementada com vetor e controle de topo.
+
+### Consultas Agendadas
+
+Utiliza uma **Fila (FIFO - First In, First Out)**.
+
+* O primeiro paciente a chegar é o primeiro a ser atendido.
+* Implementada com vetor e controle de início e fim.
+
+### Exames / Laboratório
+
+Utiliza uma **Fila Circular**.
+
+* Capacidade máxima de 8 pacientes.
+* Quando a fila estiver cheia, o paciente mais antigo será removido automaticamente.
+* Implementada com índices circulares.
+
+---
+
+## Cadastro de Pacientes
+
+Cada paciente possui as seguintes informações:
+
+| Campo               | Tipo                                        |
+| ------------------- | ------------------------------------------- |
+| Nome                | String                                      |
+| Idade               | Inteiro                                     |
+| Gravidade           | Inteiro (1 a 5)                             |
+| Tipo de Atendimento | 1 - Emergência<br>2 - Consulta<br>3 - Exame |
+
+---
+
+## Funcionalidades do Sistema
+
+* Cadastro de pacientes
+* Atendimento de pacientes por setor
+* Visualização das filas e pilha
+* Transferência de pacientes entre setores
+* Relatórios de atendimento
+* Encerramento do sistema
+
+---
+
+## Regras de Negócio
+
+### Gravidade do Paciente
+
+Pacientes com gravidade **4 ou 5** devem ser encaminhados automaticamente para o setor de **Emergência**.
+
+### Atendimento
+
+Ao atender um paciente, o sistema deve exibir todos os seus dados antes da remoção da estrutura.
+
+### Fila Circular
+
+Quando atingir a capacidade máxima:
+
+1. O paciente mais antigo é removido automaticamente.
+2. O novo paciente é inserido na fila.
+
+---
+
+## Problemas Encontrados Durante o Desenvolvimento
+
+Durante a implementação do sistema, alguns desafios foram identificados:
+
+### Controle da Pilha
+
+Foi necessário impedir inserções quando a pilha estivesse cheia e evitar remoções quando estivesse vazia.
+
+### Controle da Fila
+
+Houve atenção especial no gerenciamento dos índices de início e fim para evitar erros de acesso e perda de dados.
+
+### Implementação da Fila Circular
+
+A lógica de retorno dos índices ao início do vetor exigiu testes e correções para garantir o funcionamento correto.
+
+### Remoção Automática
+
+Ao atingir o limite de pacientes na fila circular, foi necessário remover corretamente o paciente mais antigo antes de inserir um novo.
+
+### Transferência Entre Setores
+
+Foi preciso garantir que o paciente fosse removido da estrutura de origem e inserido corretamente na estrutura de destino.
+
+### Validação de Dados
+
+Foram implementadas verificações para impedir:
+
+* Gravidade fora do intervalo de 1 a 5.
+* Tipos de atendimento inválidos.
+* Dados obrigatórios vazios.
+
+### Limitações de Capacidade
+
+Cada estrutura possui um tamanho máximo definido por vetor, exigindo verificações antes de novas inserções.
+
+---
+
+## Estrutura do Projeto
+
+```text
 HospitalSimulado/
 │
 ├── main.c
@@ -12,10 +138,24 @@ HospitalSimulado/
 ├── filaCircular.h
 ├── filaCircular.c
 └── README.md
---- ## Como Compilar
-bash
+```
+
+---
+
+## Como Compilar
+
+```bash
 gcc *.c -o hospital
+```
+
 ## Como Executar
-bash
+
+```bash
 ./hospital
-coloque alguns problemas q podem ter ocorrido
+```
+
+---
+
+## Conclusão
+
+O projeto permitiu aplicar na prática os conceitos de Pilha, Fila e Fila Circular, demonstrando diferentes formas de organização e gerenciamento de dados em um cenário hospitalar. Além disso, proporcionou experiência no tratamento de exceções, validação de dados e implementação de estruturas utilizando vetores em linguagem C.
